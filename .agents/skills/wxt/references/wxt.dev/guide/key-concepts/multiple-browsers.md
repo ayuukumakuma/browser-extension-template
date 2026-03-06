@@ -1,0 +1,99 @@
+---
+title: "Targeting Different Browsers – WXT"
+source_url: "https://wxt.dev/guide/key-concepts/multiple-browsers"
+fetched_at: "2026-03-06T07:09:09.689083+00:00"
+---
+
+
+
+Are you an LLM? You can read better optimized documentation at /guide/essentials/target-different-browsers.md for this page in Markdown format
+
+# Targeting Different Browsers [​](https://wxt.dev/guide/key-concepts/multiple-browsers.html#targeting-different-browsers)
+
+When building an extension with WXT, you can create multiple builds of your extension targeting different browsers and manifest versions.
+
+## Target a Browser [​](https://wxt.dev/guide/key-concepts/multiple-browsers.html#target-a-browser)
+
+Use the `-b` CLI flag to create a separate build of your extension for a specific browser. By default, `chrome` is targeted.
+
+sh
+
+```
+wxt            # same as: wxt -b chrome
+wxt -b firefox
+wxt -b custom
+```
+
+During development, if you target Firefox, Firefox will open. All other strings open Chrome by default. To customize which browsers open, see [Set Browser Binaries](https://wxt.dev/guide/essentials/config/browser-startup.html#set-browser-binaries).
+
+Additionally, WXT defines several constants you can use at runtime to detect which browser is in use:
+
+ts
+
+```
+if (import.meta.env.BROWSER === 'firefox') {
+  console.log('Do something only in Firefox builds');
+}
+if (import.meta.env.FIREFOX) {
+  // Shorthand, equivalent to the if-statement above
+}
+```
+
+Read about [Built-in Environment Variables](https://wxt.dev/guide/essentials/config/environment-variables.html#built-in-environment-variables) for more details.
+
+## Target a Manifest Version [​](https://wxt.dev/guide/key-concepts/multiple-browsers.html#target-a-manifest-version)
+
+To target specific manifest versions, use the `--mv2` or `--mv3` CLI flags.
+
+Default Manifest Version
+
+By default, WXT will target MV2 for Safari and Firefox and MV3 for all other browsers.
+
+Similar to the browser, you can get the target manifest version at runtime using the [built-in environment variable](https://wxt.dev/guide/essentials/config/environment-variables.html#built-in-environment-variables):
+
+ts
+
+```
+if (import.meta.env.MANIFEST_VERSION === 2) {
+  console.log('Do something only in MV2 builds');
+}
+```
+
+## Filtering Entrypoints [​](https://wxt.dev/guide/key-concepts/multiple-browsers.html#filtering-entrypoints)
+
+Every entrypoint can be included or excluded when targeting specific browsers via the `include` and `exclude` options.
+
+Here are some examples:
+
+* Content script only built when targeting `firefox`:
+
+  ts
+
+  ```
+  export default defineContentScript({
+    include: ['firefox'],
+
+    main(ctx) {
+      // ...
+    },
+  });
+  ```
+* HTML file only built for all targets other than `chrome`:
+
+  html
+
+  ```
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="manifest.exclude" content="['chrome', ...]" />
+    </head>
+    <body>
+      <!-- ... -->
+    </body>
+  </html>
+  ```
+
+Alternatively, you can use the [`filterEntrypoints` config](https://wxt.dev/api/reference/wxt/interfaces/inlineconfig.html#filterentrypoints) to list all the entrypoints you want to build.
