@@ -19,6 +19,9 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             bun
+            actionlint
+            zizmor
+            ghalint
           ];
 
           shellHook = ''

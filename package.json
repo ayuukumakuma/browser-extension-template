@@ -19,9 +19,10 @@
     "format:check": "oxfmt --check .",
     "lint": "oxlint --tsconfig tsconfig.json --type-aware --type-check .",
     "lint:fix": "oxlint --tsconfig tsconfig.json --type-aware --type-check --fix .",
+    "lint:gha": "bun run --parallel actionlint 'ghalint run' 'zizmor .'",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "bun run --sequential format:check lint test build"
+    "check": "bun run --sequential format:check lint lint:gha test build"
   },
   "dependencies": {
     "react": "^19.1.1",

@@ -47,6 +47,22 @@ bun run zip
 bun run check
 ```
 
+### GitHub Actions Lint (local)
+
+Static analysis for `.github/workflows/` using actionlint, ghalint, and zizmor:
+
+```bash
+bun run lint:gha
+```
+
+Install the tools. With `nix develop`, actionlint is included; otherwise install all via Homebrew:
+
+```bash
+brew install actionlint
+brew install suzuki-shunsuke/ghalint/ghalint
+brew install zizmor
+```
+
 ## Template Contents
 
 - `background` entrypoint with install logging and popup message handling
