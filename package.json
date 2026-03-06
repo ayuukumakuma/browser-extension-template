@@ -1,0 +1,43 @@
+{
+  "name": "browser-extension-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "init": "bun run scripts/init.ts",
+    "postinstall": "wxt prepare",
+    "dev": "bun run --parallel dev:chrome dev:firefox",
+    "dev:chrome": "wxt -b chrome",
+    "dev:firefox": "wxt -b firefox",
+    "build": "bun run --parallel build:chrome build:firefox",
+    "build:chrome": "wxt build -b chrome",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "bun run --parallel zip:chrome zip:firefox",
+    "zip:chrome": "wxt zip -b chrome",
+    "zip:firefox": "wxt zip -b firefox",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint --tsconfig tsconfig.json --type-aware --type-check .",
+    "lint:fix": "oxlint --tsconfig tsconfig.json --type-aware --type-check --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "bun run --sequential format:check lint test build"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.5",
+    "@wxt-dev/module-react": "^1.1.5",
+    "oxfmt": "^0.36.0",
+    "oxlint": "^1.51.0",
+    "oxlint-tsgolint": "^0.16.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
+    "wxt": "^0.20.18"
+  },
+  "packageManager": "bun@1.3.10"
+}
