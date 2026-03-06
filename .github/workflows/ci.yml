@@ -50,7 +50,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: browser-extension-template-packages
-          path: |
-            .output/*-chrome.zip
-            .output/*-firefox.zip
+          path: .output/*.zip
           if-no-files-found: error
