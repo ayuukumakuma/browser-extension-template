@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "style": "error",
+    "suspicious": "error"
+  },
+  "ignorePatterns": [".agents/**", ".output/**", ".wxt/**", "dist/**"],
+  "overrides": [
+    {
+      "files": ["vitest.config.ts"],
+      "rules": {
+        "new-cap": "off"
+      }
+    },
+    {
+      "files": ["scripts/**/*.ts"],
+      "rules": {
+        "func-style": "off",
+        "id-length": "off",
+        "max-lines-per-function": "off",
+        "max-statements": "off",
+        "no-magic-numbers": "off",
+        "no-unreadable-array-destructuring": "off"
+      }
+    },
+    {
+      "env": {
+        "vitest": true
+      },
+      "files": ["tests/**/*.spec.ts", "tests/**/*.spec.tsx", "tests/**/*.test.ts"],
+      "plugins": ["eslint", "oxc", "typescript", "unicorn", "vitest"],
+      "rules": {
+        "no-magic-numbers": "off"
+      }
+    }
+  ],
+  "plugins": ["eslint", "oxc", "typescript", "unicorn"],
+  "rules": {
+    "sort-imports": "off",
+    "sort-keys": "off"
+  },
+  "settings": {
+    "vitest": {
+      "typecheck": true
+    }
+  }
+}
